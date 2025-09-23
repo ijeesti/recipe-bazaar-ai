@@ -1,10 +1,8 @@
 
 
-&nbsp;# Recipe Bazaar AI: A Modern Approach to Search
+# Recipe Bazaar AI: A Modern Approach to Search
 
 This repository is a practical, fully-containerized demonstration of how to build a powerful, AI-powered search solution that effortlessly scales and integrates with your existing relational databases. It's a living example of how to move beyond manual, complex SQL queries.
-
-
 
 🚀 Key Features \& Highlights
 
@@ -31,29 +29,18 @@ This project includes a comprehensive API to showcase a superior search experien
 | Real-Time Updates | Add new comments that are instantly searchable via real-time indexing.       |
 
 
-
-
-
-Export to Sheets
-
 ⚡ Getting Started with Docker
 
 The entire project is containerized for a friction-free setup. Just follow these two steps to get it running locally.
-
 Clone the Repository:
 
 ```bash
-
 git clone https://github.com/ijeesti/recipe-bazaar-ai.git
-
 cd recipe-bazaar-ai
-
 docker-compose up --build
 
 ```
-
 👉 Once the containers are up, open your browser and navigate to Swagger UI for an interactive API documentation and testing experience.
-
 ```
 
 ### Contributing
