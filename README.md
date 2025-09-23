@@ -9,16 +9,8 @@ This repository is a practical, fully-containerized demonstration of how to buil
 🚀 Key Features \& Highlights
 
 Automated Setup: The application automatically creates and configures the search index and indexer from your SQL database at runtime. No manual setup is required!
-
-
-
 Intelligent Search APIs: Explore a suite of modern API endpoints built to handle complex search scenarios with minimal code.
-
-
-
 Seamless Integration: This project demonstrates a clean architecture that separates your transactional database from your search layer for improved performance and scalability.
-
-
 
 🔍 API Endpoints in Action
 
@@ -48,11 +40,7 @@ Export to Sheets
 
 The entire project is containerized for a friction-free setup. Just follow these two steps to get it running locally.
 
-
-
 Clone the Repository:
-
-
 
 ```bash
 
@@ -64,23 +52,11 @@ docker-compose up --build
 
 ```
 
-
-
-
-
 👉 Once the containers are up, open your browser and navigate to Swagger UI for an interactive API documentation and testing experience.
-
-
-
-
 
 ```
 
-
-
-\## Contributing
-
-
+### Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
 
