@@ -1,0 +1,13 @@
+services:
+  recipebazaarai.api:
+    image: ${DOCKER_REGISTRY-}recipebazaaraiapi
+    build:
+      context: .
+      dockerfile: src/RecipeBazaarAi.Api/Dockerfile
+    container_name: recipebazaaraiapi_image
+    ports:
+      - "9090:8080" # HTTP
+      - "9091:8081" # HTTPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
