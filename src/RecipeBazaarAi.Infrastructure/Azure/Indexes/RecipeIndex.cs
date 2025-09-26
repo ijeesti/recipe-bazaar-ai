@@ -6,7 +6,7 @@ namespace RecipeBazaarAi.Infrastructure.Azure.Indexes;
 public class RecipeIndex
 {
     [SimpleField(IsKey = true, IsFilterable = true)]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Id { get; set; } = string.Empty;
 
     [SearchableField(IsFilterable = true, IsSortable = true)]
     public string Title { get; set; } = string.Empty;
@@ -25,6 +25,9 @@ public class RecipeIndex
 
     [SimpleField(IsFilterable = true, IsSortable = true)]
     public string CategoryName { get; set; } = string.Empty;
+
+    [SimpleField(IsFilterable = false, IsSortable = false)]
+    public string ImageUrl { get; set; } = string.Empty;
 
     [SearchableField(IsFilterable = false)]
     public CommentIndex[] Comments { get; set; } = [];

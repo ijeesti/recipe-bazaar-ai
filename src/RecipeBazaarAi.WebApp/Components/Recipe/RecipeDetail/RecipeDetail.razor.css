@@ -1,0 +1,45 @@
+﻿/* Custom CSS for Recipe Detail Elegance */
+
+.recipe-detail {
+    /* Limit max width for readability on very large screens */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    border-radius: 1.5rem !important; /* Softer rounded corners */
+}
+
+/* Ensure the image takes up the full height of its column */
+.recipe-right {
+    height: 100%;
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 0 1.5rem 1.5rem 0 !important; /* Match card rounded corners */
+}
+
+/* On smaller screens, remove the specific rounding for the image */
+@media (max-width: 991.98px) {
+    .detail-image {
+        border-radius: 1.5rem 1.5rem 0 0 !important;
+        max-height: 400px; /* Cap image height on mobile */
+    }
+}
+
+/* Enhancing list/text readability if @Recipe.Ingredients/@Recipe.Instructions are plain text */
+.ingredient-list,
+.instructions-text {
+    line-height: 1.8;
+    color: #495057; /* Slightly darker than default text */
+}
+
+/* Style for metadata */
+.meta small {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}

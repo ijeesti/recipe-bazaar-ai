@@ -12,5 +12,7 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="src\RecipeBazaarAi.WebApp\Components\Recipe\_Imports.razor" />
+    <None Include="src\RecipeBazaarAi.WebApp\Components\_Imports.razor" />
   </ItemGroup>
 </Project>

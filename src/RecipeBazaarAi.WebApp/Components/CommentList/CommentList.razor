@@ -1,0 +1,38 @@
+﻿@using RecipeBazaarAi.WebApp.Components.CommentForm
+
+<div class="comment-root">
+    <h4>Comments (@(Comments?.Length ?? 0))</h4>
+    <CommentForm RecipeId="@RecipeId" OnCommentSubmitted="OnFormSubmitted" />
+    <div class="comment-list mt-4">
+        @if (Comments != null && Comments.Length > 0)
+        {
+            // Start a counter for the index
+            int index = 0;
+            <ul class="list-group comment-group shadow-sm">
+                @foreach (var c in Comments)
+                {
+                    // Determine if the row is odd or even
+                    string rowClass = (index % 2 == 0) ? "even-row" : "odd-row";
+
+                    <li class="list-group-item comment-item border-0 p-3 mb-2 rounded-3 @rowClass">
+                        <div class="d-flex align-items-start mb-2">
+                            <div class="avatar me-3 flex-shrink-0 bg-secondary text-white">
+                                @c.UserName[0]
+                            </div>
+
+                            <div class="flex-grow-1">
+                                <strong class="comment-username d-block">@c.UserName</strong>
+                                <small class="text-muted comment-date">
+                                    <i class="bi bi-clock me-1"></i> @c.CommentDate.ToLocalTime().ToString("g")
+                                </small>
+                            </div>
+                        </div>
+
+                        <p class="comment-content mb-0">@c.Content</p>
+                    </li>
+                    index++; // Increment the counter
+                }
+            </ul>
+        }
+    </div>
+</div>

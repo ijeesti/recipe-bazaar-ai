@@ -2,6 +2,7 @@ using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using RecipeBaazar.Api.Endpoints;
+using RecipeBazaarAi.Api.Endpoints;
 using RecipeBazaarAi.Infrastructure.Azure;
 using RecipeBazaarAi.Infrastructure.Azure.Interfaces;
 using RecipeBazaarAi.Infrastructure.Azure.Services;
@@ -9,21 +10,20 @@ using RecipeBazaarAi.Infrastructure.Azure.Services;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 services.AddOpenApi();
-//services.AddCors(options =>
-//{
-//    options.AddPolicy("crs",
-//        policy =>
-//        {
-//            policy.AllowAnyOrigin()
-//                  .AllowAnyHeader()
-//                  .AllowAnyMethod();
-//        });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin() //WithOrigins..
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "RecipeBaazar API",
+        Title = "Recipe-Bazaar API",
         Version = "v1",
         Description = "API for managing and searching recipes using Azure Search"
     });
@@ -65,11 +65,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecipeBaazar API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recipe Bazaar AI API v1");
         c.RoutePrefix = string.Empty; // Swagger at root
     });
 }
-//app.UseCors("crs");
+app.UseCors();
 // Map endpoints
 app.MapRecipeEndpoints();
 app.MapIndexEndpoints();

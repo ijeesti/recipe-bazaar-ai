@@ -1,0 +1,20 @@
+﻿@inherits RecipeListBase
+
+<h3>Recipes</h3>
+
+@if (IsLoading)
+{
+    <p>Loading...</p>
+}
+else
+{
+
+    <ul>
+        @foreach (var recipe in Recipes)
+        {
+            <li>
+                <strong>@recipe.Title</strong> - @recipe.Description
+            </li>
+        }
+    </ul>
+}

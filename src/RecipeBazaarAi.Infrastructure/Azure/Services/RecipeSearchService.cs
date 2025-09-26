@@ -73,6 +73,11 @@ public class RecipeSearchService(
         return true;
     }
 
+    public async Task<ICollection<RecipeIndex>> GetAllRecipesAsync(int skip, int take)
+    {
+        var options = new SearchOptions { Size = take, Skip= skip, OrderBy = { "Title desc" } };
+        return await GetResultAsync("*", options);
+    }
 
     public async Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchRequest searchRequest) =>
         await GetResultAsync(searchRequest.Query,
@@ -105,10 +110,9 @@ public class RecipeSearchService(
 
     public async Task<ICollection<RecipeIndex>> SearchPopularRecipesAsync(SearchRequest searchRequest)
     {
-        var options = new SearchOptions { Size = searchRequest.Top, OrderBy = { "CreatedOn desc" } };
+        var options = new SearchOptions { Size = searchRequest.Top, OrderBy = { "Title desc" } };
         return await GetResultAsync(searchRequest.Query, options);
     }
-
 
     public async Task<ICollection<RecipeIndex>> SearchRecipesWeightedAsync(SearchRequest searchRequest)
     {
@@ -150,6 +154,9 @@ public class RecipeSearchService(
 
         await foreach (var r in response.Value.GetResultsAsync())
         {
+            r.Document.ImageUrl = string.IsNullOrEmpty(r.Document.ImageUrl) 
+                ? "https://placehold.co/400"
+                : r.Document.ImageUrl ;
             results.Add(r.Document);
         }
 

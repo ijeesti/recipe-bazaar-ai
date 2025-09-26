@@ -1,0 +1,56 @@
+﻿@using RecipeBazaarAi.WebApp.Components.Recipe.RecipeList
+@inherits RecipeListBase
+
+@if (IsLoading)
+{
+    <p>Loading...</p>
+    return;
+}
+
+@if (!RecipeIndexResult.Recipes.Any())
+{
+    <p>No recipes found.</p>
+    return;
+}
+
+<div class="page-content-wrapper container">
+    <!-- Responsive Recipe Grid: Now using the custom CSS class -->
+    <div class="responsive-recipe-grid mt-4">
+        @foreach (var recipe in RecipeIndexResult.Recipes)
+        {
+            <!-- Card Structure: Using custom classes defined above -->
+            <div @key="recipe.Id" class="card-recipe">
+
+                <!-- Image Area -->
+                <img src="@recipe.ImageUrl" alt="@recipe.Title" class="card-img-top-recipe" />
+
+                <!-- Card Body -->
+                <div class="card-body-recipe">
+                    <h3 class="h5 card-title">@recipe.Title</h3>
+
+                    <!-- Description Snippet -->
+                    <p class="card-text text-secondary mb-3" style="font-size: 0.9rem; flex-grow: 1;">
+                        <strong>Description: </strong>   @recipe.Description
+                    </p>
+
+                    <!-- Footer / Actions (d-flex/justify-content-between are standard Bootstrap) -->
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <small class="text-muted-recipe">Created: @recipe.CreatedOn.ToString("dd-mm-yyyy")</small>
+
+                        <div class="btn-group-recipe">
+                            <!-- NavLink styled like a custom button -->
+                            <button @onclick="() => ViewRecipe(recipe)" class="btn-dark btn-outline-secondary-recipe ">
+                                View
+                            </button>
+                            <!-- NavLink styled like a custom button -->
+                            <button href="@($"/recipes/edit/{recipe.Id}")"
+                                     class="btn-dark btn-outline-secondary-recipe">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

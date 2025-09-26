@@ -1,0 +1,207 @@
+﻿/*.recipe-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: flex-start;
+}
+
+.recipe-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+    .recipe-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+
+.recipe-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.recipe-body {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .recipe-body h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    .recipe-body .description {
+        font-size: 0.9rem;
+        color: #555;
+        margin: 0.5rem 0;
+        flex-grow: 1;
+    }
+
+.btn-details {
+    background: #0078d4;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+    .btn-details:hover {
+        background: #005a9e;
+    }
+
+.pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+*/
+
+@page
+
+"/"
+@page "/recipes"
+<!--
+CUSTOM CSS: This block ensures the layout and basic styling work
+by implementing a responsive CSS Grid and Bootstrap-like card styling.
+-->
+<style >
+/* 1. Responsive Grid Structure */
+.responsive-recipe-grid {
+    display: grid;
+    /* Cards are minimum 300px wide, automatically wrapping and filling available space */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; /* Standard Bootstrap-style grid gutter */
+    padding: 1rem 0;
+}
+
+/* 2. Card Styling */
+.card-recipe {
+    border: 1px solid #dee2e6;
+    border-radius: .5rem; /* Slightly more rounded than standard Bootstrap */
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+    .card-recipe:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    }
+
+.card-img-top-recipe {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+}
+
+.card-body-recipe {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.text-muted-recipe {
+    color: #6c757d;
+    font-size: 0.875rem; /* small text size */
+}
+
+/* 3. Button Styling (Mimics Bootstrap btn-outline-secondary) */
+.btn-outline-secondary-recipe {
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    background-color: darkgrey;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+    .btn-outline-secondary-recipe:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+
+
+.responsive-recipe-grid {
+    display: grid;
+    /* Cards are minimum 300px wide, automatically wrapping and filling available space */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; /* Standard Bootstrap-style grid gutter */
+    padding: 1rem 0;
+}
+
+/* 2. Card Styling */
+.card-recipe {
+    border: 1px solid #dee2e6;
+    border-radius: .5rem; /* Slightly more rounded than standard Bootstrap */
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* CRITICAL FIX: Ensure the card doesn't exceed the width of its grid column */
+    width: 100%;
+}
+
+    .card-recipe:hover {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    }
+
+.card-img-top-recipe {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+}
+
+.card-body-recipe {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.text-muted-recipe {
+    color: #6c757d;
+    font-size: 0.875rem; /* small text size */
+}
+
+/* 3. Button Styling (Mimics Bootstrap btn-outline-secondary) */
+.btn-outline-secondary-recipe {
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    background-color: transparent;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    border-radius: .25rem;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+    .btn-outline-secondary-recipe:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }

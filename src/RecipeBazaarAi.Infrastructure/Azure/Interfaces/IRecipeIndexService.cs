@@ -9,6 +9,8 @@ public interface IRecipeIndexService
     Task<bool> CreateOrUpdateIndexAsync();
     Task<bool> UploadRecipesAsync(string jsonFilePath);
 
+    Task<ICollection<RecipeIndex>> GetAllRecipesAsync(int skip, int top);
+
     // Basic search
     Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchRequest searchRequest);
 

@@ -1,0 +1,12 @@
+﻿
+<EditForm Model="NewComment" OnValidSubmit="HandleSubmit">
+    <div class="mb-2">
+        <InputText class="form-control" @bind-Value="NewComment.UserName" placeholder="Your name" />
+    </div>
+    <div class="mb-2">
+        <InputTextArea class="form-control" @bind-Value="NewComment.Content" placeholder="Write a comment" />
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</EditForm>

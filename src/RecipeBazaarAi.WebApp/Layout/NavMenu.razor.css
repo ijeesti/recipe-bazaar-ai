@@ -1,0 +1,134 @@
+:root {
+    /* (Existing colors from previous response) */
+    --color-primary: #FF4500; /* Orange-Red */
+    --color-secondary: #FFD700; /* Gold/Yellow */
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    --color-bg-card: rgba(255, 255, 255, 0.95);
+    --color-shadow: rgba(0, 0, 0, 0.15);
+    /* Navigation specific colors */
+    --nav-bg: #fff;
+    --nav-link-color: var(--color-text-dark);
+    --nav-link-hover: var(--color-primary);
+    --nav-gradient-start: #8B0000; /* Deep Red/Brown */
+    --nav-gradient-end: #A87C00; /* Deep Gold/Olive */
+    --nav-bg-fallback: #8B0000; /* Solid fallback for older browsers */
+}
+
+/* --- Main Site Navigation (Optional - for site header) --- */
+.main-nav-bar {
+    /* Fallback color */
+    background-color: var(--nav-bg-fallback);
+    /* The Gradient Magic */
+    background-image: linear-gradient( to right, var(--nav-gradient-start) 0%, var(--nav-gradient-end) 100% );
+    box-shadow: 0 4px 20px var(--color-shadow); /* Stronger shadow to pop against the page */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .main-nav-bar .logo a {
+        font-size: 1.5em;
+        font-weight: 900;
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+.nav-links a {
+    color: var(--nav-link-color);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        color: var(--nav-link-hover);
+        background-color: #ffe8b3; /* Light yellow background on hover */
+        transform: translateY(-2px);
+    }
+
+/* --- Fancy Navigation for Edit/View (for details page) --- */
+.fancy-action-nav {
+    display: flex;
+    justify-content: space-between; /* Space out the Back button and Edit/View buttons */
+    align-items: center;
+    padding: 15px 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #fefefe, #fcfcfc);
+    box-shadow: 0 4px 15px var(--color-shadow);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+    .action-buttons .btn, .back-btn {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 50px; /* Pill shape for a modern look */
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: all 0.3s ease, box-shadow 0.2s;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+.back-btn {
+    background-color: #e0e0e0;
+    color: var(--color-text-dark);
+}
+
+    .back-btn:hover {
+        background-color: #c0c0c0;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+    }
+
+.edit-btn {
+    background-color: var(--color-primary); /* Red */
+    color: var(--color-text-light);
+}
+
+    .edit-btn:hover {
+        background-color: #d83a00;
+        transform: scale(1.05);
+        box-shadow: 0 5px 10px rgba(255, 69, 0, 0.5);
+    }
+
+.view-btn {
+    background-color: var(--color-secondary); /* Yellow */
+    color: var(--color-text-dark);
+}
+
+    .view-btn:hover {
+        background-color: #e0c000;
+        transform: scale(1.05);
+        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+    }
+
+/* --- Responsive adjustments for buttons --- */
+@media (max-width: 600px) {
+    .fancy-action-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .action-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+        .action-buttons .btn, .back-btn {
+            flex-grow: 1; /* Make buttons fill width on small screens */
+            text-align: center;
+        }
+}

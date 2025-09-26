@@ -3,7 +3,7 @@ using RecipeBazaarAi.Domain.Contracts;
 using RecipeBazaarAi.Infrastructure.Azure.Indexes;
 using RecipeBazaarAi.Infrastructure.Azure.Interfaces;
 
-namespace RecipeBaazar.Api.Endpoints;
+namespace RecipeBazaarAi.Api.Endpoints;
 
 public static class RecipeEndpoints
 {
@@ -11,6 +11,29 @@ public static class RecipeEndpoints
     {
         var group = app.MapGroup("/api/recipes")
                        .WithTags("Recipe Search");
+
+
+        // Full text search
+        group.MapGet("/all", async (
+            [FromQuery] int skip,
+            [FromQuery] int take,
+            IRecipeIndexService searchService) =>
+        {
+            take = take > 0 ? take : 10;
+            skip = take > 0 ? skip : 0;
+            var results = await searchService.GetAllRecipesAsync(skip, take);
+
+            return Results.Ok(new RecipeIndexResult
+            {
+                TotalCount = results.Count,
+                Recipes = results
+            });
+        })
+        .WithName("GetAll")
+        .WithSummary("Fetch all recipe fields")
+        .WithDescription("Get all recipes order by date created")
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces<List<RecipeIndex>>(StatusCodes.Status200OK);
 
         // Full text search
         group.MapGet("/fulltext-search", async (
@@ -90,7 +113,7 @@ public static class RecipeEndpoints
         .Produces<List<RecipeIndex>>(StatusCodes.Status200OK);
 
         // Add comment to a recipe
-        group.MapPost("/recipes/{id}/comments", async (
+        group.MapPost("/{id}/comments", async (
             [FromRoute] string id,
             [FromBody] CommentIndex newComment,
             [FromServices] ICommentIndexService commentIndexService) =>

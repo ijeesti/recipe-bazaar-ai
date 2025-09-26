@@ -1,0 +1,53 @@
+﻿@page "/recipes/{Id}"
+@using RecipeBazaarAi.WebApp.Components.CommentList
+@inherits RecipeDetailBase
+
+@if (IsLoading)
+{
+    <div class="text-center py-4">Loading recipe...</div>
+    return;
+}
+
+@if (Recipe == null)
+{
+    <div class="text-muted">Recipe not found</div>
+    return;
+}
+
+<div class="container recipe-detail my-5">
+    <div class="card shadow-lg border-0">
+        <div class="row g-0">
+            <div class="col-lg-6 order-lg-2">
+                <div class="recipe-right">
+                    <img src="@Recipe.ImageUrl" alt="@Recipe.Title" class="img-fluid rounded-end detail-image" />
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-lg-1">
+                <div class="card-body p-4 p-md-5 recipe-left">
+                    <h1 class="card-title display-5 fw-bold mb-3">@Recipe.Title</h1>
+                    <p class="lead text-muted mb-4">@Recipe.Description</p>
+
+                    <div class="d-flex flex-wrap gap-3 mb-4 text-secondary meta">
+                        <small class="text-uppercase fw-semibold"><i class="bi bi-person me-1"></i> By @Recipe.UserName</small>
+                        <small class="text-uppercase fw-semibold"><i class="bi bi-tag me-1"></i> @Recipe.CategoryName</small>
+                        <small class="text-uppercase fw-semibold"><i class="bi bi-clock me-1"></i> @Recipe.CreatedOn.ToLocalTime().ToString("g")</small>
+                    </div>
+                    <section class="mb-5">
+                        <h4 class="fw-bold text-primary mb-3">Ingredients <i class="bi bi-list-check"></i></h4>
+                        <div class="ingredient-list">@Recipe.Ingredients</div>
+                    </section>
+                    <section class="mb-5">
+                        <h4 class="fw-bold text-success mb-3">Instructions <i class="bi bi-book"></i></h4>
+                        <div class="instructions-text">@Recipe.Instructions</div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comments-block mt-5">
+        <CommentList RecipeId="@Id" Comments="@Recipe.Comments" OnCommentAdded="CommentAddedHandler" />
+    </div>
+</div>
