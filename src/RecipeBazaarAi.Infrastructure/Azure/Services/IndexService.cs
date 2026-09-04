@@ -6,7 +6,6 @@ using RecipeBazaarAi.Infrastructure.Azure.Interfaces;
 
 namespace RecipeBazaarAi.Infrastructure.Azure.Services;
 
-
 public class IndexService(
     SearchIndexClient indexClient,
     SearchIndexerClient indexerClient,
@@ -89,19 +88,22 @@ public class IndexService(
     // 6) Optional: delete indexer/data source/index
     public async Task<bool> DeleteIndexerAsync(string indexerName)
     {
-        await indexerClient.DeleteIndexerAsync(indexerName);
-        return true; //TODO: proper api status
+        var response = await indexerClient.DeleteIndexerAsync(
+            indexerName,
+            matchConditions: null
+            );
+        return !response.IsError;
     }
 
     public async Task<bool> DeleteDataSourceAsync(string dataSourceName)
     {
-        await indexerClient.DeleteDataSourceConnectionAsync(dataSourceName);
+        await indexerClient.DeleteDataSourceConnectionAsync(dataSourceName, cancellationToken: default);
         return true;
     }
 
     public async Task<bool> DeleteIndexAsync(string indexName)
     {
-        await indexClient.DeleteIndexAsync(indexName);
+        await indexClient.DeleteIndexAsync(indexName, cancellationToken: default);
         return true;
     }
 }

@@ -1,27 +1,27 @@
 using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
-using RecipeBaazar.Api.Endpoints;
-using RecipeBazaarAi.Api.Endpoints;
+using Carter;
 using RecipeBazaarAi.Infrastructure.Azure;
 using RecipeBazaarAi.Infrastructure.Azure.Interfaces;
 using RecipeBazaarAi.Infrastructure.Azure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-services.AddOpenApi();
-builder.Services.AddCors(options =>
+services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin() //WithOrigins..
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
+
+services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
     {
         Title = "Recipe-Bazaar API",
         Version = "v1",
@@ -29,50 +29,44 @@ services.AddSwaggerGen(options =>
     });
 });
 
-// Bind once into a concrete object
-var azureOptions = builder.Configuration.GetSection("AzureOptions").Get<AzureOptions>();
+var azureOptions = builder.Configuration.GetSection(nameof(AzureOptions)).Get<AzureOptions>()
+    ?? throw new InvalidOperationException("AzureOptions configuration section is missing or invalid.");
 
-if (azureOptions is null)
-{
-    throw new InvalidOperationException("AzureOptions configuration section is missing or invalid.");
-}
-services.Configure<AzureOptions>(builder.Configuration.GetSection("AzureOptions"));
+services.Configure<AzureOptions>(builder.Configuration.GetSection(nameof(AzureOptions)));
 services.AddSingleton(azureOptions);
-
-// Register SearchClient for index operations
 services.AddSingleton(sp =>
-{
-    return new SearchClient(
+    new SearchClient(
         new Uri(azureOptions.Endpoint),
         azureOptions.IndexName,
-        new AzureKeyCredential(azureOptions.ApiKey));
-});
+        new AzureKeyCredential(azureOptions.ApiKey)));
 
 services.AddSingleton(sp =>
-{
-    return new SearchIndexClient(
+    new SearchIndexClient(
         new Uri(azureOptions.Endpoint),
-        new AzureKeyCredential(azureOptions.ApiKey));
-});
+        new AzureKeyCredential(azureOptions.ApiKey)));
+
+services.AddSingleton(sp =>
+    new SearchIndexerClient(
+        new Uri(azureOptions.Endpoint),
+        new AzureKeyCredential(azureOptions.ApiKey)));
 
 services.AddSingleton<IRecipeIndexService, RecipeSearchService>();
 services.AddSingleton<ICommentIndexService, CommentIndexService>();
-var app = builder.Build();
+services.AddSingleton<IIndexService, IndexService>();
+services.AddCarter();
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recipe Bazaar AI API v1");
-        c.RoutePrefix = string.Empty; // Swagger at root
+        c.RoutePrefix = string.Empty; // Serve Swagger UI at root "/"
     });
 }
+
 app.UseCors();
-// Map endpoints
-app.MapRecipeEndpoints();
-app.MapIndexEndpoints();
-//Index,Indexer Demo => app.MapIndexerIndexEndpoints();
+app.MapCarter();
 
 app.Run();

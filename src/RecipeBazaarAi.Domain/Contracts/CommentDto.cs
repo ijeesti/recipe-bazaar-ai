@@ -18,4 +18,3 @@ public class CommentDto : CommentBaseDto
     public string UserName { get; set; } = string.Empty;
     public DateTime CreatedOn { get; set; }
 }
-

@@ -79,7 +79,7 @@ public class RecipeSearchService(
         return await GetResultAsync("*", options);
     }
 
-    public async Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchRequest searchRequest) =>
+    public async Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchQueryRequest searchRequest) =>
         await GetResultAsync(searchRequest.Query,
             new SearchOptions
             {
@@ -108,13 +108,13 @@ public class RecipeSearchService(
         return suggestions;
     }
 
-    public async Task<ICollection<RecipeIndex>> SearchPopularRecipesAsync(SearchRequest searchRequest)
+    public async Task<ICollection<RecipeIndex>> SearchPopularRecipesAsync(SearchQueryRequest searchRequest)
     {
         var options = new SearchOptions { Size = searchRequest.Top, OrderBy = { "Title desc" } };
         return await GetResultAsync(searchRequest.Query, options);
     }
 
-    public async Task<ICollection<RecipeIndex>> SearchRecipesWeightedAsync(SearchRequest searchRequest)
+    public async Task<ICollection<RecipeIndex>> SearchRecipesWeightedAsync(SearchQueryRequest searchRequest)
     {
         if (string.IsNullOrWhiteSpace(searchRequest.Query) || searchRequest.Query.Length < 3)
         {
@@ -140,7 +140,7 @@ public class RecipeSearchService(
         return await GetResultAsync(query, options);
     }
 
-    public async Task<ICollection<RecipeIndex>> SemanticSearchAsync(SearchRequest searchRequest)
+    public async Task<ICollection<RecipeIndex>> SemanticSearchAsync(SearchQueryRequest searchRequest)
     {
         // Placeholder for future AI / semantic ranking logic
         return await SearchRecipesAsync(searchRequest);

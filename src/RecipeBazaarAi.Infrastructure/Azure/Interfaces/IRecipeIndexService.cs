@@ -12,7 +12,7 @@ public interface IRecipeIndexService
     Task<ICollection<RecipeIndex>> GetAllRecipesAsync(int skip, int top);
 
     // Basic search
-    Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchRequest searchRequest);
+    Task<ICollection<RecipeIndex>> SearchRecipesAsync(SearchQueryRequest searchRequest);
 
     // Search with filters
     Task<ICollection<RecipeIndex>> SearchRecipesWithFiltersAsync(string query, string? category = null, string? user = null);
@@ -21,12 +21,12 @@ public interface IRecipeIndexService
     Task<ICollection<SuggestRecipeResult>> SuggestRecipesAsync(string term);
 
     // Popular / boosted search
-    Task<ICollection<RecipeIndex>> SearchPopularRecipesAsync(SearchRequest searchRequest);
+    Task<ICollection<RecipeIndex>> SearchPopularRecipesAsync(SearchQueryRequest searchRequest);
 
     //Weight Search
-    Task<ICollection<RecipeIndex>> SearchRecipesWeightedAsync(SearchRequest searchRequest);
+    Task<ICollection<RecipeIndex>> SearchRecipesWeightedAsync(SearchQueryRequest searchRequest);
 
     // Semantic / AI-based search (future-ready)
-    Task<ICollection<RecipeIndex>> SemanticSearchAsync(SearchRequest searchRequest);
+    Task<ICollection<RecipeIndex>> SemanticSearchAsync(SearchQueryRequest searchRequest);
 }
 
